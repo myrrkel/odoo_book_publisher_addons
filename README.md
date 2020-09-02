@@ -1,0 +1,1 @@
+# odoo_book_publisher_addons
