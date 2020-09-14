@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 {
     'name': 'Partner Bookshop Import',
-    'version': '1.1.0.0',
+    'version': '13.1.0.0',
     'author': 'myrrkel',
     'website': 'https://github.com/myrrkel',
     'summary': "Module",

@@ -1,0 +1,8 @@
+<odoo>
+    <data noupdate="1">
+        <record model="product.category" id="product_category_book">
+            <field name="name">Book</field>
+            <field name="parent_id" ref="product.product_category_1"/>
+        </record>
+    </data>
+</odoo>
