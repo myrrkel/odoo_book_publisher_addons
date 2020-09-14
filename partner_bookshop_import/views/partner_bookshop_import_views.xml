@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="partner_bookshop_import_from" model="ir.ui.view">
+        <field name="name">partner.bookshop.import.form</field>
+        <field name="model">partner.bookshop.import</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Partner Bookshop Import">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="url"/>
+                        <field name="import_type"/>
+                        <field name="partner_category_id"/>
+                    </group>
+
+                    <button string="Import Partners" name="import_partners" type="object" class="btn-primary"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_bookshop_import_tree" model="ir.ui.view">
+        <field name="name">partner.bookshop.import.tree</field>
+        <field name="model">partner.bookshop.import</field>
+        <field name="arch" type="xml">
+            <tree string="Partner Bookshop Imports">
+                <field name="name" string="Partner Bookshop Import"/>
+                <field name="url"/>
+                <field name="import_type"/>
+                <field name="partner_category_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="partner_bookshop_import_action" model="ir.actions.act_window">
+        <field name="name">Partner Bookshop Imports</field>
+        <field name="res_model">partner.bookshop.import</field>
+        <field name="view_id" ref="partner_bookshop_import.partner_bookshop_import_tree"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Set a new Partner Bookshop Import
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        name="Partner Bookshop Imports"
+        id="menu_partner_bookshop_import_act"
+        action="partner_bookshop_import_action"
+        parent="contacts.res_partner_menu_config"/>
+
+</odoo>
