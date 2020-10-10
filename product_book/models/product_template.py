@@ -12,15 +12,14 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    is_book = fields.Boolean('Is a Book', compute='_compute_is_book')
+    is_book = fields.Boolean('Is a Book')
     isbn = fields.Char(string='ISBN')
+    release_date = fields.Date(string='Release Date')
     author_id = fields.Many2one('res.partner', 'Author', domain=[('is_author', '=', True)])
+    author_ids = fields.Many2many('res.partner', string='Authors', domain=[('is_author', '=', True)])
+    authors_name = fields.Char('Authors', compute="_compute_authors_name")
 
-    @api.depends('categ_id')
-    def _compute_is_book(self):
+    @api.depends('author_ids', 'author_ids.name')
+    def _compute_authors_name(self):
         for product in self:
-            _logger.info("_compute_is_book product_category_book %s", self.env.ref('product_book.product_category_book'))
-            if product.categ_id.id == self.env.ref('product_book.product_category_book').id:
-                product.is_book = True
-            else:
-                product.is_book = False
+            product.authors_name = ', '.join(product.author_ids.mapped('name'))

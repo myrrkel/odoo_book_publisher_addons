@@ -13,6 +13,7 @@
     'depends': [
         'sale',
         'contacts',
+        'product_template_tags',
     ],
     'category': 'Generic Modules/Product',
     'complexity': 'easy',
