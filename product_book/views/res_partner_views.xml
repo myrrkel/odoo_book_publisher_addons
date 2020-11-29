@@ -10,4 +10,15 @@
                 </xpath>
         </field>
     </record>
+
+    <record id="view_res_partner_filter_author" model="ir.ui.view">
+        <field name="name">res.partner.select.author</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='type_company']" position="after">
+                <filter string="Authors" name="is_author" domain="[('is_author', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

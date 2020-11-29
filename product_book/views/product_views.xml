@@ -7,9 +7,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='categ_id']" position="after">
                 <field name="is_book"/>
-                <!--                <field name="author_id" attrs="{'invisible': [('is_book', '=', False)]}"/>-->
-                <!--                <field name="author_ids"  widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': False}"-->
-                <!--                       attrs="{'invisible': [('is_book', '=', False)]}"/>-->
                 <field name="author_ids" string="Authors" attrs="{'invisible': [('is_book', '=', False)]}">
                     <tree>
                         <field name="name"/>
@@ -31,6 +28,32 @@
                 <p>
                     <em><field name="authors_name" attrs="{'invisible': [('is_book', '=', False)]}"/></em>
                 </p>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_product_authors_name_tree_view">
+        <field name="name">product.product.authors_name.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="default_code" position="replace"/>
+            <field name="name" position="after">
+                <field name="is_book" invisible="1"/>
+                <field name="authors_name" attrs="{'invisible': [('is_book', '=', False)]}"/>
+                <field name="tag_ids" attrs="{'invisible': [('is_book', '=', False)]}" widget="many2many_tags"/>
+                <field name="barcode"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_search_view_book" model="ir.ui.view">
+        <field name="name">product.template.search.view.book</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='consumable']" position="after">
+                <filter string="Books" name="is_book" domain="[('is_book', '=', True)]"/>
             </xpath>
         </field>
     </record>
