@@ -23,3 +23,9 @@ class ProductTemplate(models.Model):
     def _compute_authors_name(self):
         for product in self:
             product.authors_name = ', '.join(product.author_ids.mapped('name'))
+
+    @api.onchange('is_book')
+    def set_default_categ_id(self):
+        for rec in self:
+            if rec.is_book:
+                rec.categ_id = self.env.ref('product_book.product_category_book')
