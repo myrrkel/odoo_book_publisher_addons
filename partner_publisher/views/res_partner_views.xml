@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="act_author_2_books" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="context">{'search_default_author_ids': active_id, 'default_author_ids': [(4, active_id)], 'default_is_book': True}</field>
+        <field name="domain">[('author_ids', '=', active_id)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new book!
+            </p>
+        </field>
+    </record>
+
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@mode='kanban']/form//field[@name='function']" position="after">
+                <field name="category_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_kanban_details')]" position="inside">
+                <div t-if="record.category_id">
+                    <field name="category_id" widget="many2many_tags"/>
+                </div>
+            </xpath>
+
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="action" name="%(act_author_2_books)d" icon="fa-book">
+                    <field string="Books" name="book_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+
+
+
+</odoo>
