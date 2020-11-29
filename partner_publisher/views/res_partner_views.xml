@@ -24,7 +24,7 @@
             </xpath>
             <xpath expr="//div[hasclass('oe_kanban_details')]" position="inside">
                 <div t-if="record.category_id">
-                    <field name="category_id" widget="many2many_tags"/>
+                    <field name="category_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 </div>
             </xpath>
 
@@ -37,7 +37,27 @@
         </field>
     </record>
 
+    <record id="view_partner_category_form_main" model="ir.ui.view">
+        <field name="name">Contact Tags</field>
+        <field name="model">res.partner.category</field>
+        <field name="inherit_id" ref="base.view_partner_category_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name = "is_main"/>
+            </field>
+        </field>
+    </record>
 
+    <record id="view_res_partner_filter_category" model="ir.ui.view">
+        <field name="name">res.partner.select.category</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Main Category" name="main_category_id"  context="{'group_by':'main_category_id'}"/>
+            </xpath>
+        </field>
+    </record>
 
 
 </odoo>
