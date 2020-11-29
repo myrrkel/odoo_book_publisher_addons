@@ -21,4 +21,15 @@
             </xpath>
         </field>
     </record>
+
+    <record model="ir.ui.view" id="view_partner_tree_category">
+        <field name="name">view.partner.tree.category</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="category_id"  widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </field>
+        </field>
+    </record>
 </odoo>

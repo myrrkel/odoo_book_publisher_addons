@@ -41,7 +41,7 @@
             <field name="name" position="after">
                 <field name="is_book" invisible="1"/>
                 <field name="authors_name" attrs="{'invisible': [('is_book', '=', False)]}"/>
-                <field name="tag_ids" attrs="{'invisible': [('is_book', '=', False)]}" widget="many2many_tags"/>
+                <field name="tag_ids" attrs="{'invisible': [('is_book', '=', False)]}" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="barcode"/>
             </field>
         </field>
@@ -56,6 +56,13 @@
                 <filter string="Books" name="is_book" domain="[('is_book', '=', True)]"/>
             </xpath>
         </field>
+    </record>
+
+    <record id="product_template_tag_config_menu" model="ir.ui.menu">
+        <field name="name">Product Tags</field>
+        <field name="parent_id" ref="sale.menu_sale_config" />
+        <field name="sequence" eval="40" />
+        <field name="action" ref="product_template_tags.product_template_tag_act_window" />
     </record>
 
 </odoo>

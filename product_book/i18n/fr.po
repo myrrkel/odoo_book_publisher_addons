@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-29 17:38+0000\n"
-"PO-Revision-Date: 2020-11-29 17:38+0000\n"
+"POT-Creation-Date: 2020-11-29 18:14+0000\n"
+"PO-Revision-Date: 2020-11-29 18:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,6 +45,11 @@ msgid "Books"
 msgstr "Livres"
 
 #. module: product_book
+#: model_terms:ir.ui.view,arch_db:product_book.view_res_partner_filter_author
+msgid "Categories"
+msgstr ""
+
+#. module: product_book
 #: model:ir.model,name:product_book.model_res_partner
 msgid "Contact"
 msgstr ""
@@ -66,6 +71,11 @@ msgstr "Est un auteur"
 #: model:ir.model.fields,field_description:product_book.field_product_template__is_book
 msgid "Is a Book"
 msgstr "Est un livre"
+
+#. module: product_book
+#: model:ir.ui.menu,name:product_book.product_template_tag_config_menu
+msgid "Product Tags"
+msgstr "Tags d'article"
 
 #. module: product_book
 #: model:ir.model,name:product_book.model_product_template
