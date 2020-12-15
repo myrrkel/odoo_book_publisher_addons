@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_partner_form_distributor">
+        <field name="name">res.partner.form.distributor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="is_distributor"/>
+                    <field name="location_id" attrs="{'invisible' : [('is_distributor', '=', False)]}"/>
+                </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_distributor" model="ir.ui.view">
+        <field name="name">res.partner.select.distributor</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='type_company']" position="after">
+                <filter string="Distributors" name="is_distributor" domain="[('is_distributor', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
