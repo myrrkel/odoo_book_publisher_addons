@@ -31,6 +31,8 @@ This module allows to create invoice for distributor. Lines are linked to a fina
         'security/security.xml',
         'views/account_invoice_view.xml',
         'views/res_partner_views.xml',
+        'views/sale_order_views.xml',
+        'views/report_distributor_order.xml',
     ],
     'auto_install': False,
     'installable': True,

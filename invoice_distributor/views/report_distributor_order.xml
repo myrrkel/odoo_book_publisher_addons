@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_distributor_order_document" inherit_id="account.report_invoice_document" primary="True">
+            <xpath expr="//th[@name='th_description']" position="before">
+                <th name="th_customer" class="text-left">
+                    <span>Customer</span>
+                </th>
+            </xpath>
+            <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+                <td name="customer_name">
+                    <span t-field="line.customer_id"/>
+                </td>
+            </xpath>
+            <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
+                <h2>
+                    <span>Distributor Order</span>
+                    <span t-if="o.name != '/'" t-field="o.name"/>
+                </h2>
+            </xpath>
+        </template>
+
+
+        <template id="report_distributor_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.invoice_user_id.sudo().lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-call="invoice_distributor.report_distributor_order_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+
+        <report
+            id="distributor_orders"
+            model="account.move"
+            string="Distributor Order"
+            report_type="qweb-pdf"
+            name="invoice_distributor.report_distributor_order"
+            file="invoice_distributor.report_distributor_order"
+            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="(object._get_report_base_filename())"
+            groups="account.group_account_invoice"
+        />
+
+
+<!--        <record id="action_distributor_orders" model="ir.actions.report">-->
+<!--            <field name="name">Distributor Order</field>-->
+<!--            <field name="model">account.move</field>-->
+<!--            <field name="binding_model_id" ref="model_account_move"/>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">account.report_distributor_order</field>-->
+<!--            <field name="report_file">account.report_distributor_order</field>-->
+<!--            <field name="attachment">'ditributor_order.pdf'</field>-->
+<!--            <field name="attachment_use">True</field>-->
+<!--            <field name="binding_view_types">list</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>
