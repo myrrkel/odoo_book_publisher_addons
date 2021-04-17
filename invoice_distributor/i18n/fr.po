@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-17 12:22+0000\n"
-"PO-Revision-Date: 2021-04-17 12:22+0000\n"
+"POT-Creation-Date: 2021-04-17 16:10+0000\n"
+"PO-Revision-Date: 2021-04-17 16:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,15 @@ msgstr ""
 #: model:ir.actions.report,print_report_name:invoice_distributor.action_report_distributor_order
 msgid "(object._get_report_base_filename())"
 msgstr ""
+
+#. module: invoice_distributor
+#: model_terms:ir.ui.view,arch_db:invoice_distributor.report_distributor_order_document
+msgid ""
+"<br/>\n"
+"                    <span>Distributor Order</span>"
+msgstr ""
+"<br/>\n"
+"                    <span>Commande Distributeur</span>"
 
 #. module: invoice_distributor
 #: model:mail.template,body_html:invoice_distributor.email_template_distributor_order
@@ -84,8 +93,20 @@ msgstr "<span>Client</span>"
 
 #. module: invoice_distributor
 #: model_terms:ir.ui.view,arch_db:invoice_distributor.report_distributor_order_document
-msgid "<span>Distributor Order</span>"
-msgstr "<span>Commande Distributeur</span>"
+msgid "<strong>Order Date:</strong>"
+msgstr "<strong>Date de commande :</strong>"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Barcode"
+msgstr "Code-barre"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "City"
+msgstr "Ville"
 
 #. module: invoice_distributor
 #: model:ir.model,name:invoice_distributor.model_res_partner
@@ -93,7 +114,15 @@ msgid "Contact"
 msgstr ""
 
 #. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Country"
+msgstr "Pays"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
 #: model:ir.model.fields,field_description:invoice_distributor.field_account_move_line__customer_id
+#, python-format
 msgid "Customer"
 msgstr "Client"
 
@@ -152,6 +181,24 @@ msgid "Order Name"
 msgstr ""
 
 #. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Price Unit"
+msgstr "Prix Unitaire"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Product"
+msgstr "Article"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: invoice_distributor
 #: model:ir.model,name:invoice_distributor.model_sale_order
 msgid "Sales Order"
 msgstr "Bon de commande"
@@ -167,6 +214,30 @@ msgid "Send Distributor Order"
 msgstr "Envoyer Commande Distributeur"
 
 #. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Street"
+msgstr "Rue"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Street2"
+msgstr "Rue 2"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Subtotal"
+msgstr "Sous-total"
+
+#. module: invoice_distributor
 #: model:ir.model,name:invoice_distributor.model_stock_warehouse
 msgid "Warehouse"
 msgstr "Entrepôt"
+
+#. module: invoice_distributor
+#: code:addons/invoice_distributor/models/account_move.py:0
+#, python-format
+msgid "Zip Code"
+msgstr "Code Postale"

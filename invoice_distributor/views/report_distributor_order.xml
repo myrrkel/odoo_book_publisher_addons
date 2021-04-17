@@ -2,7 +2,15 @@
 <odoo>
     <data>
 
-        <template id="report_distributor_order_document" inherit_id="account.report_invoice_document" primary="True">
+        <template id="report_distributor_order_document"
+                  inherit_id="account.report_invoice_document"
+                  priority="99"
+                  primary="True">
+
+            <xpath expr="//div[@name='invoice_date']/strong" position="replace">
+                <strong>Order Date:</strong>
+            </xpath>
+
             <xpath expr="//th[@name='th_description']" position="before">
                 <th name="th_customer" class="text-left">
                     <span>Customer</span>

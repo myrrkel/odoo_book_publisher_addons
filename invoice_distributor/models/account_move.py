@@ -4,6 +4,9 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import AccessError, UserError
+from odoo.tools import pycompat
+import base64
+import io
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -62,11 +65,23 @@ class AccountMove(models.Model):
         return res
 
     def action_distributor_order_send(self):
-        ''' Opens a wizard to compose an email ans send distributor order '''
+        """ Opens a wizard to compose an email ans send distributor order """
         self.ensure_one()
-        template_id = self.env['ir.model.data'].xmlid_to_res_id('invoice_distributor.email_template_distributor_order', raise_if_not_found=False)
+        template_id = self.env['ir.model.data'].xmlid_to_res_id('invoice_distributor.email_template_distributor_order',
+                                                                raise_if_not_found=False)
+
+        data_record = self.distributor_order_to_csv()
+        ir_values = {
+            'name': "%s.csv" % self.distributor_order_name.replace('/', '_'),
+            'type': 'binary',
+            'datas': base64.encodebytes(data_record),
+            'mimetype': 'text/csv',
+        }
+        csv_attach_id = self.env['ir.attachment'].create(ir_values)
+
         lang = self.env.context.get('lang')
         template = self.env['mail.template'].browse(template_id)
+        template.attachment_ids = [(6, 0, [csv_attach_id.id])]
         if template.lang:
             lang = template._render_template(template.lang, 'account.move', self.ids[0])
         ctx = {
@@ -88,6 +103,39 @@ class AccountMove(models.Model):
             'context': ctx,
         }
 
+    def distributor_order_to_csv(self):
+        csv_fields = [(_('Customer'), 'customer'),
+                      (_('Street'), 'street'),
+                      (_('Street2'), 'street2'),
+                      (_('City'), 'city'),
+                      (_('Zip Code'), 'zip'),
+                      (_('Country'), 'country'),
+                      (_('Product'), 'product'),
+                      (_('Barcode'), 'barcode'),
+                      (_('Quantity'), 'quantity'),
+                      (_('Price Unit'), 'price_unit'),
+                      (_('Subtotal'), 'price_subtotal'),
+                      ]
+
+        col_titles = [f[0] for f in csv_fields]
+
+        fp = io.BytesIO()
+        writer = pycompat.csv_writer(fp, quoting=1)
+        writer.writerow(col_titles)
+        for line in self.invoice_line_ids:
+            row = []
+            line_values = line.get_csv_distributor_order_line_values()
+            for csv_field in csv_fields:
+                d = line_values[csv_field[1]]
+                # Spreadsheet apps tend to detect formulas on leading =, + and -
+                if isinstance(d, str) and d.startswith(('=', '-', '+')):
+                    d = "'" + d
+
+                row.append(pycompat.to_text(d))
+            writer.writerow(row)
+
+        return fp.getvalue()
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
@@ -100,4 +148,18 @@ class AccountMoveLine(models.Model):
                 raise UserError(_("Invoice line can't be delete if a sale order and a stock move has been created. Cancel it before."))
         res = super(AccountMoveLine, self).unlink()
 
+    def get_csv_distributor_order_line_values(self):
+        vals = {'customer': self.customer_id.name,
+                'street': self.customer_id.street,
+                'street2': self.customer_id.street2,
+                'city': self.customer_id.city,
+                'zip': self.customer_id.zip,
+                'country': self.customer_id.country_id.name,
+                'product': self.product_id.name,
+                'barcode': self.product_id.barcode,
+                'quantity': self.quantity,
+                'price_unit': self.price_unit,
+                'price_subtotal': self.price_subtotal,
+                }
+        return vals
 
