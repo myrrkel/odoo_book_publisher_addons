@@ -6,7 +6,7 @@
     'version': '13.1.0.0',
     'author': 'myrrkel',
     'website': 'https://github.com/myrrkel',
-    'summary': "Module",
+    'summary': "Import Bookshop contacts",
     'sequence': 0,
     'certificate': '',
     'license': 'LGPL-3',
