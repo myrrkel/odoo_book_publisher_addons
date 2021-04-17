@@ -15,8 +15,10 @@
             </xpath>
             <xpath expr="//div[hasclass('page')]/h2[1]" position="replace">
                 <h2>
+                    <br/>
                     <span>Distributor Order</span>
                     <span t-if="o.name != '/'" t-field="o.name"/>
+                    <span t-else="" t-field="o.distributor_order_name"/>
                 </h2>
             </xpath>
 
