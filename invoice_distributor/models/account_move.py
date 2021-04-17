@@ -13,6 +13,10 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     is_distributor = fields.Boolean("Distributor Invoice", related='partner_id.is_distributor')
+    distributor_order_name = fields.Char('Order Name', compute='_compute_distributor_order_name')
+
+    def _compute_distributor_order_name(self):
+        self.distributor_order_name = 'DOR/%s' % str(self.id).zfill(5)
 
     def action_post(self):
         res = super(AccountMove, self).action_post()

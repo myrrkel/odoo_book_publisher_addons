@@ -2,8 +2,8 @@
 <odoo>
         <record id="email_template_distributor_order" model="mail.template">
             <field name="name">Send Distributor Order</field>
-            <field name="model_id" ref="purchase.model_account_move"/>
-            <field name="subject">${object.company_id.name} Order (Ref ${object.name or 'n/a' })</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">${object.company_id.name} Order (Ref ${object.distributor_order_name or 'n/a' })</field>
             <field name="partner_to">${object.partner_id.id}</field>
             <field name="body_html" type="html">
 <div style="margin: 0px; padding: 0px;">
@@ -13,7 +13,7 @@
             (${object.partner_id.parent_id.name})
         % endif
         <br/><br/>
-        Here is in attachment a purchase order <strong>${object.name}</strong>
+        Here is in attachment a purchase order <strong>${object.distributor_order_name}</strong>
         % if object.partner_ref:
             with reference: ${object.partner_ref}
         % endif
@@ -25,8 +25,8 @@
         Best regards,
     </p>
 </div></field>
-            <field name="report_template" ref="action_report_distributor_order"/>
-            <field name="report_name">DO_${(object.name or '').replace('/','_')}</field>
+            <field name="report_template" ref="invoice_distributor.action_report_distributor_order"/>
+            <field name="report_name">${(object.distributor_order_name or '').replace('/','_')}</field>
             <field name="lang">${object.partner_id.lang}</field>
             <field name="user_signature" eval="False"/>
             <field name="auto_delete" eval="True"/>

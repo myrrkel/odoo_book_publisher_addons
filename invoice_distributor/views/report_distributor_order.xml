@@ -19,6 +19,10 @@
                     <span t-if="o.name != '/'" t-field="o.name"/>
                 </h2>
             </xpath>
+
+            <xpath expr="//p[contains(@t-if, 'o.type in (')]" position="replace">
+                <span/>
+            </xpath>
         </template>
 
 
@@ -39,23 +43,10 @@
             report_type="qweb-pdf"
             name="invoice_distributor.report_distributor_order"
             file="invoice_distributor.report_distributor_order"
-            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            attachment="(object.distributor_order_name).replace('/','_')+'.pdf'"
             print_report_name="(object._get_report_base_filename())"
             groups="account.group_account_invoice"
         />
-
-
-<!--        <record id="action_distributor_orders" model="ir.actions.report">-->
-<!--            <field name="name">Distributor Order</field>-->
-<!--            <field name="model">account.move</field>-->
-<!--            <field name="binding_model_id" ref="model_account_move"/>-->
-<!--            <field name="report_type">qweb-pdf</field>-->
-<!--            <field name="report_name">account.report_distributor_order</field>-->
-<!--            <field name="report_file">account.report_distributor_order</field>-->
-<!--            <field name="attachment">'ditributor_order.pdf'</field>-->
-<!--            <field name="attachment_use">True</field>-->
-<!--            <field name="binding_view_types">list</field>-->
-<!--        </record>-->
 
     </data>
 </odoo>

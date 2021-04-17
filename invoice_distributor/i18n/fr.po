@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-17 08:48+0000\n"
-"PO-Revision-Date: 2021-04-17 08:48+0000\n"
+"POT-Creation-Date: 2021-04-17 12:22+0000\n"
+"PO-Revision-Date: 2021-04-17 12:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,66 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: invoice_distributor
-#: model:ir.actions.report,print_report_name:invoice_distributor.distributor_orders
+#: model:mail.template,report_name:invoice_distributor.email_template_distributor_order
+msgid "${(object.distributor_order_name or '').replace('/','_')}"
+msgstr ""
+
+#. module: invoice_distributor
+#: model:mail.template,subject:invoice_distributor.email_template_distributor_order
+msgid ""
+"${object.company_id.name} Order (Ref ${object.distributor_order_name or "
+"'n/a' })"
+msgstr ""
+"Commande ${object.company_id.name} (Ref ${object.distributor_order_name or "
+"'n/a' })"
+
+#. module: invoice_distributor
+#: model:ir.actions.report,print_report_name:invoice_distributor.action_report_distributor_order
 msgid "(object._get_report_base_filename())"
 msgstr ""
+
+#. module: invoice_distributor
+#: model:mail.template,body_html:invoice_distributor.email_template_distributor_order
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Here is in attachment a purchase order <strong>${object.distributor_order_name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            with reference: ${object.partner_ref}\n"
+"        % endif\n"
+"        amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"        from ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        If you have any questions, please do not hesitate to contact us.\n"
+"        <br/><br/>\n"
+"        Best regards,\n"
+"    </p>\n"
+"</div>"
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Cher(e) ${object.partner_id.name}\n"
+"        % if object.partner_id.parent_id:\n"
+"            (${object.partner_id.parent_id.name})\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Vous trouverez ci-joint un bon de commande <strong>${object.distributor_order_name}</strong>\n"
+"        % if object.partner_ref:\n"
+"            with reference: ${object.partner_ref}\n"
+"        % endif\n"
+"        d'un montant de <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"        de ${object.company_id.name}.\n"
+"        <br/><br/>\n"
+"        N'hésitez pas à nous contacter pour toutes questions.\n"
+"        <br/><br/>\n"
+"        Salutations,\n"
+"    </p>\n"
+"</div>"
 
 #. module: invoice_distributor
 #: model_terms:ir.ui.view,arch_db:invoice_distributor.report_distributor_order_document
@@ -46,7 +103,7 @@ msgid "Distributor Invoice"
 msgstr "Facture Distributeur"
 
 #. module: invoice_distributor
-#: model:ir.actions.report,name:invoice_distributor.distributor_orders
+#: model:ir.actions.report,name:invoice_distributor.action_report_distributor_order
 #: model:ir.model.fields,field_description:invoice_distributor.field_sale_order__is_distributor
 msgid "Distributor Order"
 msgstr "Commande Distributeur"
@@ -57,7 +114,7 @@ msgid "Distributors"
 msgstr "Distributeurs"
 
 #. module: invoice_distributor
-#: code:addons/invoice_distributor/models/invoice.py:0
+#: code:addons/invoice_distributor/models/account_move.py:0
 #, python-format
 msgid ""
 "Invoice line can't be delete if a sale order and a stock move has been "
@@ -90,6 +147,11 @@ msgid "Location"
 msgstr "Emplacement"
 
 #. module: invoice_distributor
+#: model:ir.model.fields,field_description:invoice_distributor.field_account_move__distributor_order_name
+msgid "Order Name"
+msgstr ""
+
+#. module: invoice_distributor
 #: model:ir.model,name:invoice_distributor.model_sale_order
 msgid "Sales Order"
 msgstr "Bon de commande"
@@ -98,6 +160,11 @@ msgstr "Bon de commande"
 #: model:ir.model,name:invoice_distributor.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Ligne de bons de commande"
+
+#. module: invoice_distributor
+#: model_terms:ir.ui.view,arch_db:invoice_distributor.view_move_form_distributor
+msgid "Send Distributor Order"
+msgstr "Envoyer Commande Distributeur"
 
 #. module: invoice_distributor
 #: model:ir.model,name:invoice_distributor.model_stock_warehouse
