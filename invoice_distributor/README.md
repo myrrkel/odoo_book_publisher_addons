@@ -1,6 +1,8 @@
 Invoice Distributor
 ===================
 
-This module allows to create invoice for distributor. Lines are linked to a final customer.
+This module allows creation of orders and invoices for a distributor.
+
+Invoices lines are linked to a final customer.
 
 

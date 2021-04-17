@@ -6,7 +6,7 @@
     'version': '13.0.0.0',
     'author': 'myrrkel',
     'website': 'https://github.com/myrrkel',
-    'summary': "Module",
+    'summary': "Invoices and orders for distributor",
     'sequence': 0,
     'certificate': '',
     'license': 'LGPL-3',
@@ -18,7 +18,7 @@
     'category': 'Generic Modules/Product',
     'complexity': 'easy',
     'description': '''
-This module allows to create invoice for distributor. Lines are linked to a final customer.
+This module allows creation of orders and invoices for a distributor. Invoices lines are linked to a final customer.
     ''',
     'qweb': [
     ],
@@ -31,9 +31,6 @@ This module allows to create invoice for distributor. Lines are linked to a fina
         'security/security.xml',
         'views/account_invoice_view.xml',
         'views/res_partner_views.xml',
-        'views/sale_order_views.xml',
-        'views/report_distributor_order.xml',
-        'data/mail_template_data.xml',
     ],
     'auto_install': False,
     'installable': True,
