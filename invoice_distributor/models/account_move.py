@@ -57,6 +57,33 @@ class AccountMove(models.Model):
 
         return res
 
+    def action_distributor_order_send(self):
+        ''' Opens a wizard to compose an email ans send distributor order '''
+        self.ensure_one()
+        template_id = self.env['ir.model.data'].xmlid_to_res_id('invoice_distributor.email_template_distributor_order', raise_if_not_found=False)
+        lang = self.env.context.get('lang')
+        template = self.env['mail.template'].browse(template_id)
+        if template.lang:
+            lang = template._render_template(template.lang, 'account.move', self.ids[0])
+        ctx = {
+            'default_model': 'account.move',
+            'default_res_id': self.ids[0],
+            'default_use_template': bool(template_id),
+            'default_template_id': template_id,
+            'default_composition_mode': 'comment',
+            'force_email': True,
+            'model_description': self.with_context(lang=lang).type_name,
+        }
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(False, 'form')],
+            'view_id': False,
+            'target': 'new',
+            'context': ctx,
+        }
+
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"

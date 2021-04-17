@@ -5,6 +5,9 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_distributor_order_send" string="Send Distributor Order" type="object" states="draft" class="btn-primary"/>
+            </xpath>
             <xpath expr="//field[@name='invoice_line_ids']" position="before">
                 <field name="is_distributor" invisible="1"/>
             </xpath>

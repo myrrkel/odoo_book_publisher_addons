@@ -33,7 +33,7 @@
 
 
         <report
-            id="distributor_orders"
+            id="action_report_distributor_order"
             model="account.move"
             string="Distributor Order"
             report_type="qweb-pdf"
