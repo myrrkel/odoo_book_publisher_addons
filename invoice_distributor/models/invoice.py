@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    is_distributor = fields.Boolean("Is Distributor", related='partner_id.is_distributor')
+    is_distributor = fields.Boolean("Distributor Invoice", related='partner_id.is_distributor')
 
     def action_post(self):
         res = super(AccountMove, self).action_post()

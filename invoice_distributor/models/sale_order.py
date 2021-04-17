@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
-    is_distributor = fields.Boolean("Is Distributor")
+    is_distributor = fields.Boolean("Distributor Order")
 
     @api.onchange('is_distributor')
     def _onchange_is_distributor(self):
