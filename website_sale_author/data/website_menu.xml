@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- Menu in website for Author -->
+    <record id="menu_website_author" forcecreate="True" model="website.menu">
+        <field name="name">Authors</field>
+        <field name="url">/page/authors</field>
+        <field name="sequence" type="int">25</field>
+        <field name="parent_id" ref="website.main_menu" />
+    </record>
+
+</odoo>

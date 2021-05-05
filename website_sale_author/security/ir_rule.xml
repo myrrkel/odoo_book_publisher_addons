@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_rule_public_res_partner" model="ir.rule">
+        <field name="name">Public Author Partner</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="domain_force">[('is_author', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_public'))]"/>
+    </record>
+</odoo>

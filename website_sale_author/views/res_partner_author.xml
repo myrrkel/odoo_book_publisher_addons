@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Page template for displaying Author -->
+    <template id="res_partner_authors" name="Authors">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Authors</t>
+            <div id="wrap" t-attf-class="wrapper">
+                <div class="container">
+                    <div class="row">
+                        <form action="/page/res_partner_author"
+                              class="form-horizontal mt32 col-lg-8"
+                              method="post">
+<!--                            <div class="input-group" style="margin-left:60%;">-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <input-->
+<!--                                        type="text"-->
+<!--                                        name="search"-->
+<!--                                        class="form-control"-->
+<!--                                        placeholder="Search..."-->
+<!--                                        t-att-value="search"-->
+<!--                                    />-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-2">-->
+<!--                                    <button class="btn btn-primary">Search</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                t-att-value="request.csrf_token()"
+                            />
+                        </form>
+                    </div>
+                    <br />
+                    <section>
+                        <t t-if="author_rec">
+                            <div class="row">
+                                <t t-foreach="author_rec" t-as="o">
+                                    <div class="col-sm-4 col-lg-2 d-lg-inline-block">
+                                        <a t-att-href="keep('/shop/authors',author = o.id)">
+                                            <div class="row text-center">
+                                                <div class="col">
+                                                    <div t-field="o.image_1920"
+                                                         width="200px"
+                                                         height="200px"
+                 t-options='{"widget": "image", "preview_image": "image_512", "style":"max-width: 100px;"}'/>
+                                                </div>
+                                            </div>
+                                            <div class="row text-center">
+                                                <div class="col">
+                                                    <t t-esc="o.name" />
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-if="not author_rec">
+                            <div class="text-center text-muted">
+                                <h3 class="css_editable_display">No Author Found.</h3>
+                            </div>
+                        </t>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="categories_recursive" inherit_id="website_sale.categories_recursive">
+        <xpath expr="//span[@t-field='c.name']/.." position="attributes">
+            <attribute name="t-att-href">keep('/shop/category/' + slug(c), category=0, author=author)</attribute>
+        </xpath>
+    </template>
+</odoo>

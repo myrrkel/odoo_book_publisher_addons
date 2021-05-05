@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_res_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button class="oe_stat_button" name="website_publish_button"
+                        type="object" icon="fa-globe">
+                    <field name="website_published" widget="website_button"/>
+                    <field name="is_published" invisible="1"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="website_description" string="Website Introduction"
+                      attrs="{'invisible': [('is_author', '=', False)]}">
+                    <group name="website_description" col="1">
+                        <group string="Website Introduction">
+                            <field name="website_description"
+                                   nolabel="1"
+                                   widget="html"/>
+                        </group>
+
+                        <group string="Website Short Description">
+                            <field name="website_short_description"
+                                   nolabel="1"
+                                   widget="html"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem
+        name="Authors"
+        id="menu_res_partner_authors"
+        action="contacts.action_contacts"
+        parent="website_sale.menu_product_settings"/>
+
+</odoo>
