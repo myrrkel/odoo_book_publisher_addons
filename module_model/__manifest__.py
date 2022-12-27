@@ -15,9 +15,6 @@
     ],
     'category': 'Generic Modules/Product',
     'complexity': 'easy',
-    'description': '''
-This is a model
-    ''',
     'qweb': [
     ],
     'demo': [
